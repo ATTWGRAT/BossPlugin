@@ -1,0 +1,9 @@
+name: BossPlugin
+version: '${project.version}'
+main: org.attgwrat.bossplugin.BossPlugin
+api-version: '1.20'
+load: STARTUP
+commands:
+  villagetp:
+    description: Teleports to village
+    usage: /<command>
