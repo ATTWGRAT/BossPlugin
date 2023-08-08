@@ -3,8 +3,7 @@ package org.attgwrat.bossplugin.items;
 import org.attgwrat.bossplugin.BossPlugin;
 import org.attgwrat.bossplugin.classes.CustomCraftedItem;
 import org.attgwrat.bossplugin.classes.Usable;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -21,9 +20,17 @@ public class TeleportScroll extends CustomCraftedItem implements Usable {
 
     public TeleportScroll(){
         key = new NamespacedKey(BossPlugin.getInstance(), "teleportscroll");
-        item = new ItemStack(Material.WRITTEN_BOOK);
-        ItemMeta
-        recipe = new ShapedRecipe(key, )
+        item = new ItemStack(Material.ENCHANTED_BOOK);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(ChatColor.RED + "Village Teleport Scroll");
+        item.setItemMeta(meta);
+        recipe = new ShapedRecipe(key, item);
+        recipe.shape("XYX", "YZY", "XYX");
+        recipe.setIngredient('X', Material.AMETHYST_SHARD);
+        recipe.setIngredient('Y', Material.ENDER_EYE);
+        recipe.setIngredient('Z', Material.EMERALD_BLOCK);
+
+        Bukkit.addRecipe(recipe);
     }
     @Override
     public String getName() {
@@ -32,12 +39,22 @@ public class TeleportScroll extends CustomCraftedItem implements Usable {
 
     @Override
     public void use(Player user, List<Entity> usedOn, Block usedBlock) {
+        World village = BossPlugin.getInstance().getVillage();
+        if (user.getLocation().getWorld().equals(village)) {
+            if (user.getBedSpawnLocation() != null) {
+                user.teleport(user.getBedSpawnLocation());
+            } else {
+                user.teleport(Bukkit.getWorlds().get(0).getSpawnLocation());
+            }
+        } else {
+            user.teleport(village.getSpawnLocation());
+        }
 
     }
 
     @Override
     public ItemStack getItem() {
-        return null;
+        return item;
     }
 
     @Override
@@ -47,11 +64,11 @@ public class TeleportScroll extends CustomCraftedItem implements Usable {
 
     @Override
     public NamespacedKey getKey() {
-        return null;
+        return key;
     }
 
     @Override
     public ShapedRecipe getRecipe() {
-        return null;
+        return recipe;
     }
 }
