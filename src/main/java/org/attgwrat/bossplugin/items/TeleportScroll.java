@@ -8,15 +8,16 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
-public class TeleportScroll extends CustomCraftedItem implements Usable {
-    private ItemStack item;
-    private NamespacedKey key;
-    private ShapedRecipe recipe;
+public final class TeleportScroll extends CustomCraftedItem implements Usable {
+    private final ItemStack item;
+    private final NamespacedKey key;
+    private final ShapedRecipe recipe;
 
     public TeleportScroll(){
         key = new NamespacedKey(BossPlugin.getInstance(), "teleportscroll");
@@ -25,10 +26,11 @@ public class TeleportScroll extends CustomCraftedItem implements Usable {
         meta.setDisplayName(ChatColor.RED + "Village Teleport Scroll");
         item.setItemMeta(meta);
         recipe = new ShapedRecipe(key, item);
-        recipe.shape("XYX", "YZY", "XYX");
-        recipe.setIngredient('X', Material.AMETHYST_SHARD);
-        recipe.setIngredient('Y', Material.ENDER_EYE);
-        recipe.setIngredient('Z', Material.EMERALD_BLOCK);
+        recipe.shape(" Y ", "YZY", " Y ");
+        recipe.setIngredient('Z', new RecipeChoice.ExactChoice(TeleportCatalyst.item));
+        //THIS IS UNSAFE!! TELEPORT CATALYST CLASS MUST ALWAYS BE CREATED FIRST IN THE CUSTOM ITEM MANAGER!!!
+        //OTHERWISE, THIS WILL CAUSE A NULL POINTER EXCEPTION
+        recipe.setIngredient('Y', Material.EMERALD_BLOCK);
 
         Bukkit.addRecipe(recipe);
     }
@@ -58,8 +60,13 @@ public class TeleportScroll extends CustomCraftedItem implements Usable {
     }
 
     @Override
-    public long getCooldown() {
+    public double getRange() {
         return 0;
+    }
+
+    @Override
+    public long getCooldown() {
+        return 1;
     }
 
     @Override

@@ -10,5 +10,6 @@ import java.util.List;
 public interface Usable {
     void use(Player user, List<Entity> usedOn, Block usedBlock);
     ItemStack getItem();
+    double getRange();
     long getCooldown();
 }
