@@ -3,7 +3,21 @@ version: '${project.version}'
 main: org.attgwrat.bossplugin.BossPlugin
 api-version: '1.20'
 load: POSTWORLD
+permissions:
+  bp.*:
+    description: all permissions
+    children:
+      bp.wtp: true
+      bp.admin: true
+  bp.wtp:
+    description: Teleport through worlds
+    default: op
+  bp.admin:
+    description: Most admin tools
+    default: op
 commands:
-  villagetp:
+  wtp:
     description: Teleports to village
-    usage: /<command>
+    usage: §c/<command> [world]
+    permission: bp.wtp
+    permission-message: §cYou don't have the permission to use this command!

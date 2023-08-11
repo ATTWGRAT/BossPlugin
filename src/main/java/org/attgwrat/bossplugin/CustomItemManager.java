@@ -15,7 +15,6 @@ public final class CustomItemManager {
     private final List<CustomCraftedItem> items = new ArrayList<>();
     public CustomItemManager() {
         //ALWAYS CREATE TELEPORT CATALYST FIRST
-        //THIS SHOULD ONLY BE A TEMPORARY SOLUTION!
         TeleportCatalyst teleportCatalyst = new TeleportCatalyst();
         items.add(teleportCatalyst);
         TeleportScroll teleportScroll = new TeleportScroll();

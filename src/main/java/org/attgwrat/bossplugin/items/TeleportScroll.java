@@ -28,8 +28,6 @@ public final class TeleportScroll extends CustomCraftedItem implements Usable {
         recipe = new ShapedRecipe(key, item);
         recipe.shape(" Y ", "YZY", " Y ");
         recipe.setIngredient('Z', new RecipeChoice.ExactChoice(TeleportCatalyst.item));
-        //THIS IS UNSAFE!! TELEPORT CATALYST CLASS MUST ALWAYS BE CREATED FIRST IN THE CUSTOM ITEM MANAGER!!!
-        //OTHERWISE, THIS WILL CAUSE A NULL POINTER EXCEPTION
         recipe.setIngredient('Y', Material.EMERALD_BLOCK);
 
         Bukkit.addRecipe(recipe);
@@ -41,7 +39,7 @@ public final class TeleportScroll extends CustomCraftedItem implements Usable {
 
     @Override
     public void use(Player user, List<Entity> usedOn, Block usedBlock) {
-        World village = BossPlugin.getInstance().getVillage();
+        World village = BossPlugin.getInstance().getWorldMap().get("village");
         if (user.getLocation().getWorld().equals(village)) {
             if (user.getBedSpawnLocation() != null) {
                 user.teleport(user.getBedSpawnLocation());

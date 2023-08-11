@@ -10,8 +10,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
-import java.util.logging.Logger;
-
 public class PlayerUseEventListener implements Listener {
     @EventHandler
     public void onItemUse(PlayerInteractEvent e) {
