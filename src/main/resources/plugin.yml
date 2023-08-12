@@ -21,3 +21,8 @@ commands:
     usage: §c/<command> [world]
     permission: bp.wtp
     permission-message: §cYou don't have the permission to use this command!
+  breakallow:
+    description: Allows breaking blocks on custom worlds
+    usage: §c/<command>
+    permission: bp.admin
+    permission-message: §cYou don't have the permission to use this command!

@@ -9,7 +9,9 @@ import java.util.UUID;
 public class PlayerData {
     private final UUID id;
     private final HashMap<Usable, Long> cooldowns;
+    private boolean breakAllow;
     public PlayerData(OfflinePlayer player) {
+        breakAllow = false;
 
         id = player.getUniqueId();
 
@@ -39,5 +41,13 @@ public class PlayerData {
         } else {
             return (long) Math.ceil((double) (cooldowns.get(usable) - time) / 1000);
         }
+    }
+
+    public boolean isBreakAllow() {
+        return breakAllow;
+    }
+
+    public void setBreakAllow(boolean breakAllow) {
+        this.breakAllow = breakAllow;
     }
 }

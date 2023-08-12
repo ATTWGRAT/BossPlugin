@@ -1,9 +1,11 @@
 package org.attgwrat.bossplugin;
 
 import org.attgwrat.bossplugin.classes.PlayerData;
+import org.attgwrat.bossplugin.commands.breakallow;
 import org.attgwrat.bossplugin.commands.wtp;
 import org.attgwrat.bossplugin.listeners.PlayerBreakEventListener;
 import org.attgwrat.bossplugin.listeners.PlayerUseEventListener;
+import org.attgwrat.bossplugin.tools.SetupHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -30,10 +32,9 @@ public final class BossPlugin extends JavaPlugin {
 
         Arrays.stream(Bukkit.getOfflinePlayers()).forEach(player -> playerData.put(player.getUniqueId(), new PlayerData(player)));
 
-        this.getCommand("wtp").setExecutor(new wtp());
+        SetupHelper.setupCommands(this);
 
-        Bukkit.getPluginManager().registerEvents(new PlayerUseEventListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerBreakEventListener(), this);
+        SetupHelper.setupEvents(this);
 
     }
 
