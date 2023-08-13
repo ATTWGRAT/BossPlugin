@@ -39,7 +39,7 @@ public final class TeleportScroll extends CustomCraftedItem implements Usable {
 
     @Override
     public void use(Player user, List<Entity> usedOn, Block usedBlock) {
-        World village = BossPlugin.getInstance().getWorldMap().get("village");
+        World village = BossPlugin.getInstance().getWorldManager().getWorldMap().get("village");
         if (user.getLocation().getWorld().equals(village)) {
             if (user.getBedSpawnLocation() != null) {
                 user.teleport(user.getBedSpawnLocation());

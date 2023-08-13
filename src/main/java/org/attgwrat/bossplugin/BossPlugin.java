@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public final class BossPlugin extends JavaPlugin {
-    private HashMap<String, World> worldMap;
+    private CustomWorldManager worldManager;
     private CustomItemManager itemManager;
     private static BossPlugin instance;
     private HashMap<UUID, PlayerData> playerData;
@@ -28,7 +28,7 @@ public final class BossPlugin extends JavaPlugin {
 
         playerData = new HashMap<>();
 
-        worldMap = CustomWorldManager.setup(this);
+        worldManager = new CustomWorldManager(this);
 
         Arrays.stream(Bukkit.getOfflinePlayers()).forEach(player -> playerData.put(player.getUniqueId(), new PlayerData(player)));
 
@@ -47,8 +47,8 @@ public final class BossPlugin extends JavaPlugin {
         return itemManager;
     }
 
-    public HashMap<String, World> getWorldMap() {
-        return worldMap;
+    public CustomWorldManager getWorldManager() {
+        return worldManager;
     }
 
     public static BossPlugin getInstance() {

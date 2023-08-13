@@ -2,6 +2,7 @@ package org.attgwrat.bossplugin;
 
 import org.attgwrat.bossplugin.tools.FileUtilities;
 import org.bukkit.Bukkit;
+import org.bukkit.Difficulty;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 
@@ -11,8 +12,9 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class CustomWorldManager {
+    private final HashMap<String, World> worldMap;
 
-    public static HashMap<String, World> setup(BossPlugin plugin) {
+    public CustomWorldManager(BossPlugin plugin) {
         Logger logger = plugin.getLogger();
 
         logger.info("Copying custom worlds from resources!");
@@ -23,18 +25,29 @@ public class CustomWorldManager {
             logger.info(e.getMessage());
         }
 
-        HashMap<String, World> worlds = new HashMap<>();
+        worldMap = new HashMap<>();
 
         List<World> worldList = Bukkit.getWorlds();
 
-        worlds.put("overworld", worldList.get(0));
-        worlds.put("nether", worldList.get(1));
-        worlds.put("end", worldList.get(2));
+        worldMap.put("overworld", worldList.get(0));
+        worldMap.put("nether", worldList.get(1));
+        worldMap.put("end", worldList.get(2));
 
         logger.info("Loading new worlds!");
 
-        worlds.put("village", new WorldCreator("village").createWorld());
+        worldMap.put("village", new WorldCreator("village").createWorld());
+        World village = worldMap.get("village");
+        village.setDifficulty(Difficulty.PEACEFUL);
+        village.setWeatherDuration(1000000000);
 
-        return worlds;
     }
+
+    public HashMap<String, World> getWorldMap() {
+        return worldMap;
+    }
+
+    public void reloadWorld(String worldName) {
+        if(!worldMap.containsKey(worldName)) return;
+    }
+
 }

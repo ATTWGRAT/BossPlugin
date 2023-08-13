@@ -3,7 +3,9 @@ package org.attgwrat.bossplugin.tools;
 import org.attgwrat.bossplugin.BossPlugin;
 import org.attgwrat.bossplugin.commands.breakallow;
 import org.attgwrat.bossplugin.commands.wtp;
+import org.attgwrat.bossplugin.listeners.EntityMisc;
 import org.attgwrat.bossplugin.listeners.PlayerBreakEventListener;
+import org.attgwrat.bossplugin.listeners.PlayerMisc;
 import org.attgwrat.bossplugin.listeners.PlayerUseEventListener;
 import org.bukkit.Bukkit;
 
@@ -16,5 +18,7 @@ public class SetupHelper {
     public static void setupEvents(BossPlugin plugin) {
         Bukkit.getPluginManager().registerEvents(new PlayerUseEventListener(), plugin);
         Bukkit.getPluginManager().registerEvents(new PlayerBreakEventListener(), plugin);
+        Bukkit.getPluginManager().registerEvents(new PlayerMisc(), plugin);
+        Bukkit.getPluginManager().registerEvents(new EntityMisc(), plugin);
     }
 }
